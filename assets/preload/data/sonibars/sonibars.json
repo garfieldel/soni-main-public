@@ -7038,7 +7038,7 @@
 		"player3": null,
 		"splashSkin": "noteSplashes",
 		"song": "Sonibars",
-		"needsVoices": true,
+		"needsVoices": false,
 		"arrowSkin": "",
 		"validScore": true,
 		"stage": "idk-lol",
