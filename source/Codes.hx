@@ -82,6 +82,10 @@ class Codes extends MusicBeatState
         code.x += 3;
         add(code);
 
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		#end
+
         super.create();
     }
 
@@ -96,7 +100,7 @@ class Codes extends MusicBeatState
 
         super.update(elapsed);
 
-        if (controls.BACK && canSelect) //me when the so
+        if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end && canSelect) //me when the so
         {
             MusicBeatState.switchState(new MainMenuState());
             if(!FlxG.save.data.beatedSoni)
@@ -109,7 +113,7 @@ class Codes extends MusicBeatState
                     if(FlxG.mouse.justPressed)
                         code.text += selection; //if you see this talk me to my discord: ROYAL#5081                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 :trollface:
 
-        if(controls.ACCEPT)
+        if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
             switch(code.text)
             {
                 case '1811': //Werhog code
