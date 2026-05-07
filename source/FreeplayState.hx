@@ -222,6 +222,11 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+
+		#if mobile
+		addVirtualPad(FULL, A_B_C_X_Y);
+		#end
+
 		super.create();
 	}
 
@@ -282,11 +287,11 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
-		var upP = controls.UI_UP_P;
-		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
-		var ctrl = FlxG.keys.justPressed.CONTROL;
+		var upP = controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end;
+		var downP = controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end;
+		var accepted = controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end;
+		var space = FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonC.justPressed #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL #if mobile || virtualPad.buttonY.justPressed #end;
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
@@ -304,7 +309,7 @@ class FreeplayState extends MusicBeatState
 				holdTime = 0;
 			}
 
-			if(controls.UI_DOWN || controls.UI_UP)
+			if(controls.UI_DOWN #if mobile || virtualPad.buttonDown.pressed #end || controls.UI_UP #if mobile || virtualPad.buttonUp.pressed #end)
 			{
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
@@ -318,13 +323,13 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (controls.UI_LEFT_P)
+		if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end)
 			changeDiff(-1);
-		else if (controls.UI_RIGHT_P)
+		else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end)
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
-		if (controls.BACK)
+		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
@@ -401,7 +406,7 @@ class FreeplayState extends MusicBeatState
 					
 			destroyFreeplayVocals();
 		}
-		else if(controls.RESET)
+		else if(controls.RESET #if mobile || virtualPad.buttonX.justPressed #end)
 		{
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
