@@ -212,6 +212,10 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B);
+		#end
+
 		super.create();
 	}
 
@@ -248,36 +252,36 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_LEFT_P)
+			if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
-			else if (controls.UI_RIGHT_P)
+			else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
-			else if (controls.UI_RIGHT_P && controls.UI_LEFT_P){}
+			else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end && controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end){}
 
-			if(controls.UI_UP_P && curSelected == 3)
+			if(controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end && curSelected == 3)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
-			} else if(controls.UI_DOWN_P && curSelected == 4)
+			} else if(controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end && curSelected == 4)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.BACK)
+			if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState(new TransitionData(NONE), new TransitionData(NONE)));
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 			{
 				if (optionShit[curSelected] == 'donate')
 				{
