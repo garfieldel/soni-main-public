@@ -2081,6 +2081,10 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
+		#if mobile
+		addHitbox();
+		#end
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -5345,16 +5349,16 @@ class PlayState extends MusicBeatState
 	private function keyShit():Void
 	{
 		// HOLDING
-		var up = controls.NOTE_UP;
-		var right = controls.NOTE_RIGHT;
-		var down = controls.NOTE_DOWN;
-		var left = controls.NOTE_LEFT;
+		var up = controls.NOTE_UP #if mobile || hitbox.buttonUp.pressed #end;
+		var right = controls.NOTE_RIGHT #if mobile || hitbox.buttonRight.pressed #end;
+		var down = controls.NOTE_DOWN #if mobile || hitbox.buttonDown.pressed #end;
+		var left = controls.NOTE_LEFT #if mobile || hitbox.buttonLeft.pressed #end;
 		var controlHoldArray:Array<Bool> = [left, down, up, right];
 		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if(ClientPrefs.controllerMode)
 		{
-			var controlArray:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
+			var controlArray:Array<Bool> = [controls.NOTE_LEFT_P #if mobile || hitbox.buttonLeft.justPressed #end, controls.NOTE_DOWN_P #if mobile || hitbox.buttonDown.justPressed #end, controls.NOTE_UP_P #if mobile || hitbox.buttonUp.justPressed #end, controls.NOTE_RIGHT_P #if mobile || hitbox.buttonRight.justPressed #end];
 			if(controlArray.contains(true))
 			{
 				for (i in 0...controlArray.length)
@@ -5396,7 +5400,7 @@ class PlayState extends MusicBeatState
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if(ClientPrefs.controllerMode)
 		{
-			var controlArray:Array<Bool> = [controls.NOTE_LEFT_R, controls.NOTE_DOWN_R, controls.NOTE_UP_R, controls.NOTE_RIGHT_R];
+			var controlArray:Array<Bool> = [controls.NOTE_LEFT_R #if mobile || hitbox.buttonLeft.justReleased #end, controls.NOTE_DOWN_R #if mobile || hitbox.buttonDown.justReleased #end, controls.NOTE_UP_R #if mobile || hitbox.buttonUp.justReleased #end, controls.NOTE_RIGHT_R #if mobile || hitbox.buttonRight.justReleased #end];
 			if(controlArray.contains(true))
 			{
 				for (i in 0...controlArray.length)
