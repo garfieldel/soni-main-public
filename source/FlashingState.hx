@@ -13,6 +13,8 @@ import flixel.util.FlxTimer;
 
 class FlashingState extends MusicBeatState
 {
+	super.create();
+
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
@@ -35,8 +37,6 @@ class FlashingState extends MusicBeatState
 		#if mobile
 		addVirtualPad(NONE, A_B);
 		#end
-
-		super.create();
 	}
 
 	override function update(elapsed:Float)
