@@ -14,6 +14,7 @@ import flixel.util.FlxGradient;
 import openfl.filters.ShaderFilter;
 import flixel.FlxState;
 import flixel.FlxBasic;
+import flixel.FlxCamera;
 
 class MusicBeatState extends FlxUIState
 {
@@ -24,6 +25,29 @@ class MusicBeatState extends FlxUIState
 	private var curBeat:Int = 0;
 
 	private var controls(get, never):Controls;
+
+	#if mobile
+	var hitbox:Hitbox;
+	var virtualPad:VirtualPad;
+	var camStill:FlxCamera;
+
+	public function addHitbox() {
+		camStill = new FlxCamera();
+		FlxG.cameras.add(camStill);
+		camStill.bgColor.alpha = 0;
+        hitbox = new Hitbox();
+		hitbox.cameras = [camStill];
+		add(hitbox);
+	}
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
+		camStill = new FlxCamera();
+		FlxG.cameras.add(camStill);
+		camStill.bgColor.alpha = 0;
+		virtualPad = new VirtualPad(DPad, Action);
+		virtualPad.cameras = [camStill];
+		add(virtualPad);
+	}
+	#end
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
