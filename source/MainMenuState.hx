@@ -213,7 +213,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		#if mobile
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
 
 		super.create();
@@ -264,11 +264,11 @@ class MainMenuState extends MusicBeatState
 			}
 			else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end && controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end){}
 
-			if(controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end && curSelected == 3)
+			if(controls.UI_UP_P && curSelected == 3)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
-			} else if(controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end && curSelected == 4)
+			} else if(controls.UI_DOWN_P && curSelected == 4)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
