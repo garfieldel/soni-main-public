@@ -15,6 +15,10 @@ import openfl.filters.ShaderFilter;
 import flixel.FlxState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
+#if mobile
+import mobile.Hitbox;
+import mobile.VirtualPad;
+#end
 
 class MusicBeatState extends FlxUIState
 {
