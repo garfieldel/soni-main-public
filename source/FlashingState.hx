@@ -18,8 +18,6 @@ class FlashingState extends MusicBeatState
 	var warnText:FlxText;
 	override function create()
 	{
-		super.create();
-
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
@@ -33,13 +31,19 @@ class FlashingState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		#end
+
+		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			var back:Bool = controls.BACK;
-			if (controls.ACCEPT || back) {
+			var back:Bool = controls.BACK #if mobile || virtualPad.buttonB.justPressed #end;
+			if (controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end || back) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
