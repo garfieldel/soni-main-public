@@ -224,7 +224,7 @@ class FreeplayState extends MusicBeatState
 		add(text);
 
 		#if mobile
-		addVirtualPad(FULL, A_B_C_X_Y);
+		addVirtualPad(UP_DOWN, A_B_C_X_Y);
 		#end
 
 		super.create();
@@ -323,9 +323,9 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end)
+		if (controls.UI_LEFT_P)
 			changeDiff(-1);
-		else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end)
+		else if (controls.UI_RIGHT_P)
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
