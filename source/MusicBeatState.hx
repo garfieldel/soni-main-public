@@ -51,10 +51,6 @@ class MusicBeatState extends FlxUIState
 		virtualPad.cameras = [camStill];
 		add(virtualPad);
 	}
-	public function addVirtualPadWithoutCameraStill(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
-		virtualPad = new VirtualPad(DPad, Action);
-		add(virtualPad);
-	}
 	#end
 
 	inline function get_controls():Controls
