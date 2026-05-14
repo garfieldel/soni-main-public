@@ -13,13 +13,13 @@ import flixel.util.FlxTimer;
 
 class FlashingState extends MusicBeatState
 {
-	super.create();
-
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
 	override function create()
 	{
+		super.create();
+
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
