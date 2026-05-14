@@ -5,6 +5,7 @@ import flixel.FlxBasic;
 
 class FlxVideo extends FlxBasic
 {
+	#if VIDEOS_ALLOWED
 	public var finishCallback:Void->Void = null;
 
 	public function new(name:String)
@@ -22,4 +23,5 @@ class FlxVideo extends FlxBasic
 		}
 		#end
 	}
+	#end
 }
