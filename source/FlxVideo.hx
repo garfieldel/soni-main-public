@@ -7,6 +7,9 @@ import openfl.media.Video;
 import openfl.events.Event;
 import vlc.VlcBitmap;
 #end
+#if android
+import extension.videoview.VideoView;
+#end
 import flixel.FlxBasic;
 import flixel.FlxG;
 
@@ -45,7 +48,15 @@ class FlxVideo extends FlxBasic {
 			}
 		});
 		netStream.play(name);
-
+		#elseif android
+		VideoView.playVideo('assets/videos/$name.mp4'); // the video can be in any format (e.g., .webm, .mkv, .etc)
+		VideoView.onCompletion = function()
+		{
+			if (finishCallback != null)
+			{
+				finishCallback();
+			}
+		}
 		#elseif desktop
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
 
